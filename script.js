@@ -1,15 +1,19 @@
 const startButton = document.getElementById("start");
-const div = document.querySelector("div");
+const getDiv = document.querySelector("div");
 const header = document.createElement("h1");
-const button = document.createElement("button");
+
+const test = ["test 1", "test 2", "test 3", "test 4"]
 
 function nextQuestion() {
-    while (div.firstChild) {
-        div.removeChild(div.lastChild);
+    while (getDiv.firstChild) {
+        getDiv.removeChild(getDiv.lastChild);
     }
-    div.appendChild(header);
+    header.textContent = "Test question";
+    getDiv.appendChild(header);
     for (x=0; x<4; x++) {
-        div.appendChild(button);
+        const button = document.createElement("button");
+        button.textContent = test[x];
+        getDiv.appendChild(button);
     }
 }
 
