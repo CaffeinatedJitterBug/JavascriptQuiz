@@ -1,20 +1,16 @@
 const startButton = document.getElementById("start");
-const header = document.querySelector("h1");
-const b1 = document.getElementById("b1");
-const b2 = document.getElementById("b2");
-const b3 = document.getElementById("b3");
-const b4 = document.getElementById("b4");
+const div = document.querySelector("div");
+const header = document.createElement("h1");
+const button = document.createElement("button");
 
 function nextQuestion() {
-    header.remove();
-    b1.remove();
-    b2.remove();
-    b3.remove();
-    b4.remove();
+    while (div.firstChild) {
+        div.removeChild(div.lastChild);
+    }
+    div.appendChild(header);
+    for (x=0; x<4; x++) {
+        div.appendChild(button);
+    }
 }
 
-startButton.addEventListener("click", function() {
-    header.remove();
-    startButton.remove();
-    nextQuestion();
-});
+startButton.addEventListener("click", nextQuestion);
