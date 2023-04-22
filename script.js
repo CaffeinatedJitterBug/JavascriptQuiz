@@ -17,9 +17,10 @@ const answers = {
     question5: ["Answer 17", "Answer 18", "Answer 19", "Answer 20", 3]
 }
 
+// Displays the final score of the quiz
 function finalScore() {
     header.textContent = "Final Score";
-    list.textContent = "Score: " + score;
+    list.textContent = document.write("Correct Answers: " + rightAnswers + "<br>Wrong Answers: " + wrongAnswers + "<br>Final Score: " + rightAnswers + "/" + questions.length);
     getDiv.appendChild(header);
     getDiv.appendChild(list);
 }
