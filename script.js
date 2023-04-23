@@ -27,6 +27,7 @@ function finalScore() {
     getDiv.appendChild(list);
 }
 
+// Creates and displays a timer below the quiz
 function timer() {
     let timerInterval = setInterval(function() {
         if (secondsLeft > 0) {
@@ -79,6 +80,7 @@ getDiv.addEventListener("click", function(event) {
             nextQuestion();
         } else {
             wrongAnswers++;
+            secondsLeft -= 5;
             nextQuestion();
         }
     }
