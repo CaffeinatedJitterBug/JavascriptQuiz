@@ -1,11 +1,13 @@
 // Gets the div element, creates a new h1 element, and tracks progress through quiz
-const getDiv = document.querySelector("div");
+const getDiv = document.querySelector(".quiz");
+const getTimer = document.querySelector(".timer");
 const header = document.createElement("h1");
 const list = document.createElement("p");
 let questionNumber = 0;
 let rightAnswers = 0;
 let wrongAnswers = 0;
 let score = 0;
+let secondsLeft = 60;
 
 // Stores questions and answers
 const questions = ["Question 1", "Question 2", "Question 3", "Question 4", "Question 5"];
@@ -25,14 +27,28 @@ function finalScore() {
     getDiv.appendChild(list);
 }
 
+function timer() {
+    let timerInterval = setInterval(function() {
+        if (secondsLeft > 0) {
+            secondsLeft--;
+            getTimer.textContent = secondsLeft + " seconds left";
+        } else {
+            clearInterval(timerInterval);
+            getTimer.remove();
+            questionNumber = questions.length;
+            nextQuestion();
+        }
+    }, 1000);
+}
+
 // Clears visible elements and generates a new h1 element and four buttons. Sets textContent based off of values stored in questions array and answers object
 function nextQuestion() {
     while (getDiv.firstChild) {
         getDiv.removeChild(getDiv.lastChild);
     }
-    header.textContent = questions[questionNumber];
-    getDiv.appendChild(header);
     if (questionNumber < questions.length) {
+        header.textContent = questions[questionNumber];
+        getDiv.appendChild(header);
         const answerList = Object.values(answers)[questionNumber];
         for (x=0; x<4; x++) {
             const button = document.createElement("button");
@@ -46,6 +62,7 @@ function nextQuestion() {
         }
         questionNumber++;
     } else {
+        getTimer.remove();
         finalScore();
     }
 }
@@ -55,6 +72,7 @@ getDiv.addEventListener("click", function(event) {
     const element = event.target;
     if (element.matches("button")) {
         if (element.className === "start") {
+            timer();
             nextQuestion();
         } else if (element.getAttribute("data-name") === "correct") {
             rightAnswers++;
