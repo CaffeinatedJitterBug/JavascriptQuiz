@@ -4,8 +4,6 @@ const getTimer = document.querySelector(".timer");
 const header = document.createElement("h1");
 const list = document.createElement("p");
 let questionNumber = 0;
-let rightAnswers = 0;
-let wrongAnswers = 0;
 let score = 0;
 let secondsLeft = 60;
 
@@ -22,7 +20,7 @@ const answers = {
 // Displays the final score of the quiz
 function finalScore() {
     header.textContent = "Final Score";
-    list.textContent = document.write("Correct Answers: " + rightAnswers + "<br>Wrong Answers: " + wrongAnswers + "<br>Final Score: " + rightAnswers + "/" + questions.length);
+    list.textContent = "Score: " + secondsLeft;
     getDiv.appendChild(header);
     getDiv.appendChild(list);
 }
@@ -35,7 +33,6 @@ function timer() {
             getTimer.textContent = "Timer: " + secondsLeft;
         } else {
             clearInterval(timerInterval);
-            getTimer.remove();
             questionNumber = questions.length;
             nextQuestion();
         }
@@ -63,6 +60,7 @@ function nextQuestion() {
         }
         questionNumber++;
     } else {
+        getTimer.remove();
         finalScore();
     }
 }
@@ -75,10 +73,8 @@ getDiv.addEventListener("click", function(event) {
             timer();
             nextQuestion();
         } else if (element.getAttribute("data-name") === "correct") {
-            rightAnswers++;
             nextQuestion();
         } else {
-            wrongAnswers++;
             secondsLeft -= 5;
             nextQuestion();
         }
