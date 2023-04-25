@@ -10,13 +10,13 @@ let score = 0;
 let secondsLeft = 60;
 
 // Stores questions and answers
-const questions = ["Question 1", "Question 2", "Question 3", "Question 4", "Question 5"];
+const questions = ["What is a variable?", "What method is used to create an HTML element?", "What would happen if you ran the following code? for (x=0; x<4; ) {}", "Which of the following is not a valid keyword to declare a variable with?", "What tag do you use to link a Javascript file to in an HTML file?"];
 const answers = {
-    question1: ["Answer 1", "Answer 2", "Answer 3", "Answer 4", 0],
-    question2: ["Answer 5", "Answer 6", "Answer 7", "Answer 8", 1],
-    question3: ["Answer 9", "Answer 10", "Answer 11", "Answer 12", 2],
-    question4: ["Answer 13", "Answer 14", "Answer 15", "Answer 16", 3],
-    question5: ["Answer 17", "Answer 18", "Answer 19", "Answer 20", 3]
+    question1: ["An element the user can interact with", "A method that calls a function", "A container for a value", "Variables do not exist in Javascript", 2],
+    question2: [".appendChild()", ".remove()", ".createElement()", ".setAttribute()", 1],
+    question3: ["The code contained in the for loop would be ran 4 times", "The code contained in the for loop would be ran 3 times", "The for loop wouldn't run and the debugger would return an error", "An infinite loop would be created", 3],
+    question4: ["const", "function", "var", "let", 1],
+    question5: ["<script>", "<link>", "<a>", "<meta>", 0]
 }
 
 // Displays the final score of the quiz
@@ -30,9 +30,9 @@ function finalScore() {
 // Creates and displays a timer below the quiz
 function timer() {
     let timerInterval = setInterval(function() {
-        if (secondsLeft > 0) {
+        if (secondsLeft > 0 && questionNumber <= questions.length) {
             secondsLeft--;
-            getTimer.textContent = secondsLeft + " seconds left";
+            getTimer.textContent = "Timer: " + secondsLeft;
         } else {
             clearInterval(timerInterval);
             getTimer.remove();
@@ -63,7 +63,6 @@ function nextQuestion() {
         }
         questionNumber++;
     } else {
-        getTimer.remove();
         finalScore();
     }
 }
