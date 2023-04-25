@@ -3,12 +3,15 @@ const getDiv = document.querySelector(".quiz");
 const getTimer = document.querySelector(".timer");
 const header = document.createElement("h1");
 const list = document.createElement("p");
+const formEl = document.createElement("form");
+const submitEl = document.createElement("input");
 let questionNumber = 0;
 let score = 0;
 let secondsLeft = 60;
 
-// Stores questions and answers
+// Stores questions, answers and scores
 const questions = ["What is a variable?", "What method is used to create an HTML element?", "What would happen if you ran the following code? for (x=0; x<4; ) {}", "Which of the following is not a valid keyword to declare a variable with?", "What tag do you use to link a Javascript file to in an HTML file?"];
+
 const answers = {
     question1: ["An element the user can interact with", "A method that calls a function", "A container for a value", "Variables do not exist in Javascript", 2],
     question2: [".appendChild()", ".remove()", ".createElement()", ".setAttribute()", 1],
@@ -17,12 +20,20 @@ const answers = {
     question5: ["<script>", "<link>", "<a>", "<meta>", 0]
 }
 
+const scoreBoard = {
+    intitials: [],
+    score: []
+}
+
 // Displays the final score of the quiz
 function finalScore() {
     header.textContent = "Final Score";
     list.textContent = "Score: " + secondsLeft;
+    submitEl.setAttribute("placeholder", "Initials");
     getDiv.appendChild(header);
     getDiv.appendChild(list);
+    getDiv.appendChild(formEl);
+    formEl.appendChild(submitEl);
 }
 
 // Creates and displays a timer below the quiz
