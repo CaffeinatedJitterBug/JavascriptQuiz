@@ -6,7 +6,6 @@ const list = document.createElement("p");
 const formEl = document.createElement("form");
 const submitEl = document.createElement("input");
 let questionNumber = 0;
-let score = 0;
 let secondsLeft = 60;
 
 // Stores questions, answers and scores
@@ -21,12 +20,14 @@ const answers = {
 }
 
 const scoreBoard = {
-    intitials: [],
-    score: []
+    initials: [],
+    scores: []
 }
 
 // Displays the final score of the quiz
 function finalScore() {
+    const button = document.createElement('button');
+    button.textContent = "Submit";
     header.textContent = "Final Score";
     list.textContent = "Score: " + secondsLeft;
     submitEl.setAttribute("placeholder", "Initials");
@@ -34,6 +35,7 @@ function finalScore() {
     getDiv.appendChild(list);
     getDiv.appendChild(formEl);
     formEl.appendChild(submitEl);
+    formEl.appendChild(button);
 }
 
 // Creates and displays a timer below the quiz
@@ -78,6 +80,7 @@ function nextQuestion() {
 
 // Checks to make sure element being clicked is a button and runs nextQuestion function if the button labeled "start" is clicked
 getDiv.addEventListener("click", function(event) {
+    event.preventDefault();
     const element = event.target;
     if (element.matches("button")) {
         if (element.className === "start") {
@@ -85,9 +88,14 @@ getDiv.addEventListener("click", function(event) {
             nextQuestion();
         } else if (element.getAttribute("data-name") === "correct") {
             nextQuestion();
-        } else {
+        } else if (element.getAttribute("data-name") === "wrong") {
             secondsLeft -= 5;
             nextQuestion();
+        } else {
+            const input = document.querySelector("input");
+            scoreBoard.initials.push(input);
+            scoreBoard.scores.push(secondsLeft);
+            console.log(scoreBoard.initials);
         }
     }
 });
