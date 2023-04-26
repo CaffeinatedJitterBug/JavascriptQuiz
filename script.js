@@ -78,6 +78,33 @@ function nextQuestion() {
     }
 }
 
+function showScoreBoard() {
+    const input = document.querySelector("input");
+    const initialList = document.createElement('ul');
+    const scoreList = document.createElement('ul');
+    scoreBoard.initials.push(input);
+    scoreBoard.scores.push(secondsLeft);
+
+    while (getDiv.firstChild) {
+        getDiv.removeChild(getDiv.lastChild);
+    }
+
+    getDiv.appendChild(initialList);
+    getDiv.appendChild(scoreList);
+    
+    for (x=0; x<scoreBoard.initials.length; x++) {
+        const listItem = document.createElement("li");
+        listItem.textContent = scoreBoard.initials[x];
+        initialList.appendChild(listItem);
+    }
+
+    for (x=0; x<scoreBoard.scores.length; x++) {
+        const listItem = document.createElement("li");
+        listItem.textContent = scoreBoard.scores[x];
+        initialList.appendChild(listItem);
+    }
+}
+
 // Checks to make sure element being clicked is a button and runs nextQuestion function if the button labeled "start" is clicked
 getDiv.addEventListener("click", function(event) {
     event.preventDefault();
@@ -92,10 +119,7 @@ getDiv.addEventListener("click", function(event) {
             secondsLeft -= 5;
             nextQuestion();
         } else {
-            const input = document.querySelector("input");
-            scoreBoard.initials.push(input);
-            scoreBoard.scores.push(secondsLeft);
-            console.log(scoreBoard.initials);
+            showScoreBoard();
         }
     }
 });
