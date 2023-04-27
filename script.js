@@ -79,9 +79,15 @@ function nextQuestion() {
 }
 
 function showScoreBoard() {
-    const input = document.querySelector("input");
+    const input = document.querySelector("input").value;
     const initialList = document.createElement('ul');
     const scoreList = document.createElement('ul');
+    const initialTitle = document.createElement('h2');
+    const scoreTitle = document.createElement('h2');
+    const initTitleItem = document.createElement('li');
+    const scoreTitleItem = document.createElement('li');
+    initialList.classList.add("initials");
+    scoreList.classList.add("score");
     scoreBoard.initials.push(input);
     scoreBoard.scores.push(secondsLeft);
 
@@ -89,19 +95,32 @@ function showScoreBoard() {
         getDiv.removeChild(getDiv.lastChild);
     }
 
+    header.textContent = "Score Board";
+    initialList.classList.add("initials");
+    scoreList.classList.add("score");
+
+    getDiv.appendChild(header);
     getDiv.appendChild(initialList);
     getDiv.appendChild(scoreList);
+
+    initialTitle.textContent = "Initials";
+    initialList.appendChild(initTitleItem);
+    initTitleItem.appendChild(initialTitle);
     
     for (x=0; x<scoreBoard.initials.length; x++) {
-        const listItem = document.createElement("li");
-        listItem.textContent = scoreBoard.initials[x];
-        initialList.appendChild(listItem);
+        const initialItem = document.createElement("li");
+        initialItem.textContent = scoreBoard.initials[x];
+        initialList.appendChild(initialItem);
     }
 
+    scoreTitle.textContent = "Scores";
+    scoreList.appendChild(scoreTitleItem);
+    scoreTitleItem.appendChild(scoreTitle);
+
     for (x=0; x<scoreBoard.scores.length; x++) {
-        const listItem = document.createElement("li");
-        listItem.textContent = scoreBoard.scores[x];
-        initialList.appendChild(listItem);
+        const scoreItem = document.createElement("li");
+        scoreItem.textContent = scoreBoard.scores[x];
+        scoreList.appendChild(scoreItem);
     }
 }
 
